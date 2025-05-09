@@ -3,7 +3,7 @@ from typing import TypeVar, Generic, Type, Optional, List
 import requests
 from pydantic import BaseModel, Field
 import instructor
-from instructor import patch
+from openai import OpenAI
 
 T = TypeVar('T', bound=BaseModel)
 
@@ -17,8 +17,13 @@ class LlamaModel(ABC, Generic[T]):
     def __init__(self, model_name: str = "llama2:70b", temperature: float = 0.7):
         self.model_name = model_name
         self.temperature = temperature
-        self.base_url = "http://localhost:11434/api/generate"
-        self.client = instructor.patch(requests)
+        self.client = instructor.from_openai(
+            OpenAI(
+                base_url="http://localhost:11434/v1",
+                api_key="ollama",
+            ),
+            mode=instructor.Mode.JSON,
+        )
     
     @abstractmethod
     def get_response_model(self) -> Type[T]:
@@ -40,15 +45,15 @@ class LlamaModel(ABC, Generic[T]):
             response_model = self.get_response_model()
             
         try:
-            response = self.client.post(
-                self.base_url,
-                json={
-                    "model": self.model_name,
-                    "prompt": prompt,
-                    "temperature": self.temperature,
-                    "stream": False
-                },
-                response_model=response_model
+            response = self.client.chat.completions.create(
+                model=self.model_name,
+                messages=[
+                    {
+                        "role": "user",
+                        "content": prompt,
+                    }
+                ],
+                response_model=response_model,
             )
             return response
         except requests.exceptions.RequestException as e:

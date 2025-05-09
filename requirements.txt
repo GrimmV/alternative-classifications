@@ -1,3 +1,4 @@
-requests>=2.31.0
-instructor>=0.6.0
-pydantic>=2.0.0 
+requests>=2.32.3
+instructor>=1.8.1
+pydantic>=2.11.4
+openai>=1.78.0
