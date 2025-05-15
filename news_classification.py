@@ -18,7 +18,9 @@ def main():
     Machine learning algorithms are becoming more sophisticated, 
     enabling better decision-making and automation. 
     However, there are concerns about job displacement and ethical implications.
-    """, "Voter ID is supported by an overwhelming majority of NYers, from all across the state, walks of life, & political parties."]
+    """, "Voter ID is supported by an overwhelming majority of NYers, from all across the state, walks of life, & political parties.",
+    "Exporters are using a federal loophole to 'deceptively sell products made from cat and dog fur' to U.S. consumers.", 
+    "The U.S. economy is in a recession, and the stock market is crashing. The unemployment rate is at 10%."]
     
     for text in texts:
         # Generate a structured summary
