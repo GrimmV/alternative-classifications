@@ -43,8 +43,9 @@ def analyze_correlation_matrix(df: pd.DataFrame):
 # Calculate performance metrics
 def calculate_performance_metrics(df: pd.DataFrame):
     # Calculate precision, recall, F1 score, and accuracy
-    precision = precision_score(df["label"], df["fake_news"])
-    recall = recall_score(df["label"], df["fake_news"])
-    f1 = f1_score(df["label"], df["fake_news"])
+    precision_weighted = precision_score(df["label"], df["fake_news"], average="weighted")
+    recall_weighted = recall_score(df["label"], df["fake_news"], average="weighted")
+    f1_weighted = f1_score(df["label"], df["fake_news"], average="weighted")
     accuracy = accuracy_score(df["label"], df["fake_news"])
-    return {"precision": precision, "recall": recall, "f1": f1, "accuracy": accuracy}
+    weighted_accuracy = accuracy_score(df["label"], df["fake_news"], normalize=True)
+    return {"precision_weighted": precision_weighted, "recall_weighted": recall_weighted, "f1_weighted": f1_weighted, "accuracy": accuracy, "weighted_accuracy": weighted_accuracy}
