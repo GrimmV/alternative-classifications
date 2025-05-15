@@ -1,0 +1,6 @@
+ResponseModels/__pycache__/
+__pycache__/
+analysis/.ipynb_checkpoints/
+analysis/__pycache__/
+data/
+ollama.log
