@@ -47,4 +47,4 @@ def calculate_performance_metrics(df: pd.DataFrame):
     recall = recall_score(df["label"], df["fake_news"])
     f1 = f1_score(df["label"], df["fake_news"])
     accuracy = accuracy_score(df["label"], df["fake_news"])
-    return precision, recall, f1, accuracy
+    return {"precision": precision, "recall": recall, "f1": f1, "accuracy": accuracy}
