@@ -19,12 +19,12 @@ def main():
     
         # Create a summarizer instance
     classifier = NewsClassification()
-
+    n_samples = 200
     dataset = "chengxuphd/liar2"
     dataset = datasets.load_dataset(dataset)
     train_raw = pd.DataFrame(dataset["train"])
     
-    train_raw = train_raw.sample(n=20)
+    train_raw = train_raw.sample(n=n_samples)
 
     # for X_train extract a list of dictionaries with the keys "statement" and "speaker"
     X_train = train_raw[["statement", "speaker"]].to_dict(orient="records")
