@@ -7,10 +7,6 @@ from openai import OpenAI
 
 T = TypeVar('T', bound=BaseModel)
 
-class BaseResponseModel(BaseModel):
-    """Base class for all response models"""
-    pass
-
 class LlamaModel(ABC, Generic[T]):
     """Abstract base class for Llama model interactions"""
     
@@ -60,13 +56,13 @@ class LlamaModel(ABC, Generic[T]):
             raise Exception(f"Error making request: {e}")
 
 # Example response models
-class SummaryResponse(BaseResponseModel):
+class SummaryResponse(BaseModel):
     """Example response model for summarization tasks"""
     summary: str = Field(..., description="A concise summary of the input text")
     key_points: List[str] = Field(..., description="List of key points from the text")
     sentiment: str = Field(..., description="Overall sentiment of the text (positive/negative/neutral)")
 
-class QAResponse(BaseResponseModel):
+class QAResponse(BaseModel):
     """Example response model for question-answering tasks"""
     answer: str = Field(..., description="Direct answer to the question")
     confidence: float = Field(..., description="Confidence score between 0 and 1")
