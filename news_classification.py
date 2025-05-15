@@ -36,6 +36,9 @@ def main():
         print("Sarcasm:", result.sarcasm)
         print("Claims:", result.claims)
         print("Topics:", result.topics)
+        print("Societal Relevance:", result.societal_relevance)
+        print("Fake News:", result.fake_news)
+        print("Fake News Reason:", result.fake_news_reason)
         print("--------------------------------")
         print("\n")
 
