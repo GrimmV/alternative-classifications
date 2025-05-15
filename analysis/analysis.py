@@ -1,6 +1,6 @@
 import pandas as pd
 import matplotlib.pyplot as plt
-from sklearn.metrics import confusion_matrix
+from sklearn.metrics import confusion_matrix, precision_score, recall_score, f1_score, accuracy_score
 import seaborn as sns
 import numpy as np
 
@@ -39,4 +39,12 @@ def analyze_correlation_matrix(df: pd.DataFrame):
     sns.heatmap(corr_matrix, annot=True, cmap="coolwarm")
     plt.show()
     
-    
+
+# Calculate performance metrics
+def calculate_performance_metrics(df: pd.DataFrame):
+    # Calculate precision, recall, F1 score, and accuracy
+    precision = precision_score(df["label"], df["fake_news"])
+    recall = recall_score(df["label"], df["fake_news"])
+    f1 = f1_score(df["label"], df["fake_news"])
+    accuracy = accuracy_score(df["label"], df["fake_news"])
+    return precision, recall, f1, accuracy
