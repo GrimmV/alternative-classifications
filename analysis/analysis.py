@@ -2,6 +2,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from sklearn.metrics import confusion_matrix
 import seaborn as sns
+import numpy as np
 
 def analyze_news_classification(df: pd.DataFrame):
     # plot a bar chart of the number of fake news and real news
@@ -18,9 +19,17 @@ def analyze_classification_metrics(df: pd.DataFrame):
     plt.show()
     
     
-# Scatterplot that shows the relationship between sarcasm and polarization colored by fake news
-def analyze_sarcasm_polarization(df: pd.DataFrame):
-    plt.scatter(df["sarcasm"], df["polarization"], c=df["fake_news"])
+# Scatterplot that shows the relationship between two numeric columns colored by another numeric column
+def analyze_numeric_columns(df: pd.DataFrame, column1: str, column2: str, color_column: str):
+    # adapt the points position a little bit so that they are not on top of each other
+    df[column1] = df[column1] + np.random.normal(0, 0.01, len(df))
+    df[column2] = df[column2] + np.random.normal(0, 0.01, len(df))
+    plt.scatter(df[column1], df[column2], c=df[color_column])
+    # Add a legend
+    plt.legend()
+    # Add axis labels
+    plt.xlabel(column1)
+    plt.ylabel(column2)
     plt.show()
     
     
