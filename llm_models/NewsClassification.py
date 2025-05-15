@@ -1,5 +1,5 @@
-from llama_model import LlamaModel
-from ResponseModels.ClassificationResponse import ClassificationResponse
+from llm_models.llama_model import LlamaModel
+from llm_models.ResponseModels.ClassificationResponse import ClassificationResponse
 from typing import Type
 
 class NewsClassification(LlamaModel[ClassificationResponse]):

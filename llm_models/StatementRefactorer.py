@@ -1,6 +1,6 @@
 from llm_models.ResponseModels.StatementRefactoringResponse import StatementRefactoringResponse
 from typing import Type
-from llama_model import LlamaModel
+from llm_models.llama_model import LlamaModel
 
 class StatementRefactorer(LlamaModel[StatementRefactoringResponse]):
 
