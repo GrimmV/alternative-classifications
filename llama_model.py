@@ -10,7 +10,7 @@ T = TypeVar('T', bound=BaseModel)
 class LlamaModel(ABC, Generic[T]):
     """Abstract base class for Llama model interactions"""
     
-    def __init__(self, model_name: str = "llama2:70b", temperature: float = 0.7):
+    def __init__(self, model_name: str = "llama3:70b", temperature: float = 0.7):
         self.model_name = model_name
         self.temperature = temperature
         self.client = instructor.from_openai(
