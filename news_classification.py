@@ -1,46 +1,80 @@
 from llama_model import LlamaModel
 from ResponseModels.ClassificationResponse import ClassificationResponse
 from typing import Type
+import datasets
+import pandas as pd
+import json
+import os
 
 class NewsClassification(LlamaModel[ClassificationResponse]):
-    
+
     def get_response_model(self) -> Type[ClassificationResponse]:
         return ClassificationResponse
 
+
 # Example usage
 def main():
-    # Create a summarizer instance
+    
+    path = "data/news_classification.csv"
+    
+        # Create a summarizer instance
     classifier = NewsClassification()
+
+    dataset = "chengxuphd/liar2"
+    dataset = datasets.load_dataset(dataset)
+    train_raw = pd.DataFrame(dataset["train"])
     
-    # Example text to summarize
-    texts = ["""
-    Artificial Intelligence (AI) is transforming various industries. 
-    Machine learning algorithms are becoming more sophisticated, 
-    enabling better decision-making and automation. 
-    However, there are concerns about job displacement and ethical implications.
-    """, "Voter ID is supported by an overwhelming majority of NYers, from all across the state, walks of life, & political parties.",
-    "Exporters are using a federal loophole to 'deceptively sell products made from cat and dog fur' to U.S. consumers.", 
-    "The U.S. economy is in a recession, and the stock market is crashing. The unemployment rate is at 10%."]
+    train_raw = train_raw.sample(n=20)
+
+    # for X_train extract a list of dictionaries with the keys "statement" and "speaker"
+    X_train = train_raw[["statement", "speaker"]].to_dict(orient="records")
+    # for y_train extract a list of the "label" column
+    y_train = train_raw["label"].to_list()
     
-    for text in texts:
+    df_dict = {
+        "statement": [],
+        "speaker": [],
+        "emotionality": [],
+        "sentiment": [],
+        "polarization": [],
+        "sarcasm": [],
+        "claims": [],
+        "topics": [],
+        "societal_relevance": [],
+        "societal_relevance_reason": [],
+        "fake_news": [],
+        "fake_news_reason": [],
+        "label": []
+    }
+
+    for i, text in enumerate(X_train):
         # Generate a structured summary
         result = classifier.generate(
-            f"Please classify the following text and provide key points: {text}"
+            f"Please analyze the following statement: {json.dumps(text)}"
         )
-    
+
         print("Statement: ", text)
         
-        print("Emotionality:", result.emotionality)
-        print("Sentiment:", result.sentiment)
-        print("Polarization:", result.polarization)
-        print("Sarcasm:", result.sarcasm)
-        print("Claims:", result.claims)
-        print("Topics:", result.topics)
-        print("Societal Relevance:", result.societal_relevance)
-        print("Fake News:", result.fake_news)
-        print("Fake News Reason:", result.fake_news_reason)
+        df_dict["statement"].append(text["statement"])
+        df_dict["speaker"].append(text["speaker"])
+        df_dict["emotionality"].append(result.emotionality)
+        df_dict["sentiment"].append(result.sentiment)
+        df_dict["polarization"].append(result.polarization)
+        df_dict["sarcasm"].append(result.sarcasm)
+        df_dict["claims"].append(result.claims)
+        df_dict["topics"].append(result.topics)
+        df_dict["societal_relevance"].append(result.societal_relevance)
+        df_dict["societal_relevance_reason"].append(result.societal_relevance_reason)
+        df_dict["fake_news"].append(result.fake_news)
+        df_dict["fake_news_reason"].append(result.fake_news_reason)
+        df_dict["label"].append(True if y_train[i] < 4 else False)
         print("--------------------------------")
         print("\n")
+
+    df = pd.DataFrame(df_dict)
+    df.to_csv(path, index=False)
+        
+    
 
 if __name__ == "__main__":
     main()
