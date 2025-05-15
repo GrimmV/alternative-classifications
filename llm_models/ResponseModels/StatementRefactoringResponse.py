@@ -2,4 +2,4 @@ from pydantic import BaseModel, Field
 
 class StatementRefactoringResponse(BaseModel):
     refactored_statement: str = Field(..., description="The refactored statement")
-    refactoring_reason: str = Field(..., description="The reason for the refactoring")
+    applied_changes: list[str] = Field(..., description="The changes that were applied to the statement")
