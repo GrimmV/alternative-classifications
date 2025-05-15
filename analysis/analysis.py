@@ -18,3 +18,9 @@ def analyze_classification_metrics(df: pd.DataFrame):
     plt.show()
     
     
+# Scatterplot that shows the relationship between sarcasm and polarization colored by fake news
+def analyze_sarcasm_polarization(df: pd.DataFrame):
+    plt.scatter(df["sarcasm"], df["polarization"], c=df["fake_news"])
+    plt.show()
+    
+    
