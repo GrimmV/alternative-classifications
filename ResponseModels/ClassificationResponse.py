@@ -10,3 +10,6 @@ class ClassificationResponse(BaseModel):
     sarcasm: float = Field(..., description="Sarcasm of the text from 1 (very sarcastic) to 0 (not sarcastic)")
     claims: List[str] = Field(..., description="List of claims made in the text")
     topics: List[str] = Field(..., description="List of topics discussed in the text")
+    societal_relevance: float = Field(..., description="Societal relevance of the text from 1 (very relevant) to 0 (not relevant)")
+    fake_news: bool = Field(..., description="Whether the text is fake news")
+    fake_news_reason: str = Field(..., description="Reason for the classification")
