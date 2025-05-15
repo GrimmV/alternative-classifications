@@ -4,3 +4,5 @@ analysis/.ipynb_checkpoints/
 analysis/__pycache__/
 data/
 ollama.log
+
+*.ipynb_checkpoints/
