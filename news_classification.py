@@ -48,13 +48,14 @@ def main():
     }
 
     for i, text in enumerate(X_train):
+        
+        print(f"{i}th statement")
+        print("Statement: ", text)
         # Generate a structured summary
         result = classifier.generate(
             f"Please analyze the following statement: {json.dumps(text)}"
         )
 
-        print("Statement: ", text)
-        
         df_dict["statement"].append(text["statement"])
         df_dict["speaker"].append(text["speaker"])
         df_dict["emotionality"].append(result.emotionality)
