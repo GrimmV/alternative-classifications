@@ -51,7 +51,7 @@ class LlamaModel(ABC, Generic[T]):
                 ],
                 response_model=response_model,
             )
-            return response.dict()
+            return response
         except requests.exceptions.RequestException as e:
             raise Exception(f"Error making request: {e}")
 
