@@ -1,4 +1,4 @@
-from llama_model import LlamaModel
+from llm_models.llama_model import LlamaModel
 from ResponseModels.ClassificationResponse import ClassificationResponse
 from typing import Type
 import datasets
@@ -6,10 +6,7 @@ import pandas as pd
 import json
 import os
 
-class NewsClassification(LlamaModel[ClassificationResponse]):
-
-    def get_response_model(self) -> Type[ClassificationResponse]:
-        return ClassificationResponse
+from llm_models.NewsClassification import NewsClassification
 
 
 # Example usage
