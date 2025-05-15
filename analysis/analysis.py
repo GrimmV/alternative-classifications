@@ -11,7 +11,7 @@ def analyze_news_classification(df: pd.DataFrame):
 def analyze_classification_metrics(df: pd.DataFrame):
     
     # generate the confusion matrix
-    cm = confusion_matrix(df["label"], df["fake_news"])
+    cm = confusion_matrix(df["label"], ~df["fake_news"])
     
     # visualize the confusion matrix
     sns.heatmap(cm, annot=True, fmt="d")

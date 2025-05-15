@@ -68,7 +68,7 @@ def main():
         df_dict["societal_relevance_reason"].append(result.societal_relevance_reason)
         df_dict["fake_news"].append(result.fake_news)
         df_dict["fake_news_reason"].append(result.fake_news_reason)
-        df_dict["label"].append(True if y_train[i] < 4 else False)
+        df_dict["label"].append(False if y_train[i] < 4 else True)
         print("--------------------------------")
         print("\n")
 
