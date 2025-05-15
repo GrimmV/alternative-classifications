@@ -33,3 +33,10 @@ def analyze_numeric_columns(df: pd.DataFrame, column1: str, column2: str, color_
     plt.show()
     
     
+# visualize a correlation matrix
+def analyze_correlation_matrix(df: pd.DataFrame):
+    corr_matrix = df.corr()
+    sns.heatmap(corr_matrix, annot=True, cmap="coolwarm")
+    plt.show()
+    
+    
